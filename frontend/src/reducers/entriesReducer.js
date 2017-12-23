@@ -1,4 +1,4 @@
-export default function reducer(state=[], action) {
+export function entriesReducer(state=[], action) {
   switch(action.type){
     case "FETCH_ENTRIES_FULFILLED": {
       // fresh set of all entries from the server

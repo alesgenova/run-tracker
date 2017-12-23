@@ -1,4 +1,5 @@
-import { AppRegistry } from 'react-native';
-import App from './App';
+import { AppRegistry, StatusBar } from 'react-native';
+import App from './src/setup';
 
-AppRegistry.registerComponent('ReactRunTracker', () => App);
+StatusBar.setBarStyle('default');
+AppRegistry.registerComponent('RunTracker', () => App);

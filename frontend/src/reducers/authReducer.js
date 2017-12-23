@@ -1,4 +1,4 @@
-export default function reducer(state={loggedIn: false, token: null, user: null}, action){
+export function authReducer(state={loggedIn: false, token: null, user: null}, action){
   switch (action.type){
     case "LOGIN_FULFILLED": {
       return {
@@ -13,6 +13,9 @@ export default function reducer(state={loggedIn: false, token: null, user: null}
         token: null,
         user: null
       }
+    }
+    default : {
+      return state;
     }
   }
 }

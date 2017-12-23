@@ -1,5 +1,5 @@
 {
-  "name": "ReactRunTracker",
+  "name": "RunTracker",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^5.4.0",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {

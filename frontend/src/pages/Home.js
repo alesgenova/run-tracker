@@ -11,9 +11,8 @@ import {
   Text,
   View
 } from 'react-native';
+import { connect } from 'react-redux'
 
-import {entriesReducer} from "./app/reducers/entriesReducer";
-import {usersReducer} from "./app/reducers/usersReducer";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,12 +21,11 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+/*
 const interceptCUD = (store) => (next) => (action) => {
   switch(action.type){
     case "CREATE_ENTRY" : {
-      /*
-        fetch a fresh set of entries from the server
-      */
+      //fetch a fresh set of entries from the server
     }
     default: {
       next(action);
@@ -42,8 +40,12 @@ store.dispatch({
   payload: //axios.get("v1/users") or a promise
 })
 
-export default class App extends Component<{}> {
+*/
+
+class Home extends Component<{}> {
   render() {
+    console.log("Rendering Home");
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -78,3 +80,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+export default connect(
+  (storage)=>{
+    return storage;
+  }
+)(Home);
