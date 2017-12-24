@@ -1,4 +1,6 @@
-export function entriesReducer(state=[], action) {
+const initialState = []
+
+export function entriesReducer(state=initialState, action) {
   switch(action.type){
     case "FETCH_ENTRIES_FULFILLED": {
       // fresh set of all entries from the server
@@ -12,6 +14,9 @@ export function entriesReducer(state=[], action) {
     }
     case "DELETE_ENTRY": {
       return state;
+    }
+    case "LOGOUT_FULFILLED": {
+      return initialState;
     }
     default: {
       return state;

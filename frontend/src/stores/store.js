@@ -21,7 +21,7 @@ const initialState = {
 }
 */
 
-const middlewares = [];
+const middlewares = [promise(),thunk];
 
 if (__DEV__){
   middlewares.push(createLogger());

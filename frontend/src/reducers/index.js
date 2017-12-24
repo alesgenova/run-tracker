@@ -5,19 +5,23 @@ import storage from 'redux-persist/lib/storage'
 import { entriesReducer } from "./entriesReducer";
 import { usersReducer } from "./usersReducer";
 import { authReducer } from "./authReducer";
+import { uiReducer } from './uiReducer';
 
 const config = {
   key: 'primary',
-  storage: storage
+  storage: storage,
+  whitelist: ['auth', 'entries', 'users'],
+  blacklist: ['ui']
 }
 
 //export default combineReducers({
 export default persistCombineReducers(
   config,
   {
-  auth: authReducer,
-  users: usersReducer,
-  entries: entriesReducer
+    ui: uiReducer,
+    auth: authReducer,
+    users: usersReducer,
+    entries: entriesReducer
   }
 );
 

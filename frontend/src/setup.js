@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { persistStore } from "redux-persist";
+import { Container } from "native-base";
 //import { AsyncStorage } from "react-native";
 import {
   ActivityIndicator,
+  Text,
   View
 } from 'react-native';
 
-import Home from './pages/Home';
-import EntriesList from './pages/EntriesList';
+import { RootNavigator } from './navigators/RootNavigator';
+import { LoginScreen } from './screens/Login/Login';
+
 import store from './stores/store';
 
 export default class Root extends Component {
@@ -30,9 +33,6 @@ export default class Root extends Component {
         console.log(this.auth)
         this.setState({loggedIn: auth.loggedIn});
         this.setState({isReady: true});
-        setTimeout(()=>{
-          this.setState({loggedIn: true});
-        },3000);
       }
     );
   }
@@ -46,6 +46,14 @@ export default class Root extends Component {
       </View>
       );
     }
+    return (
+      <Provider store={store}>
+
+          <RootNavigator />
+
+      </Provider>
+    );
+    /*
     console.log("Storage is ready");
     if (!this.state.loggedIn){
       return (
@@ -60,5 +68,6 @@ export default class Root extends Component {
         </Provider>
       );
     }
+    */
   }
 }
