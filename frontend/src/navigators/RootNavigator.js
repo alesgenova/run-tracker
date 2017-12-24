@@ -6,6 +6,7 @@ import { StackNavigator } from 'react-navigation';
 
 import LoginScreen from "../screens/Login/Login";
 import HomeScreen from "../screens/Home/Home";
+import RegisterScreen from "../screens/Register/Register";
 
 import { connect } from "react-redux";
 
@@ -21,6 +22,12 @@ export const RootNavigator = StackNavigator(
       screen: LoginScreen,
       navigationOptions: {
         headerTitle: 'Login',
+      },
+    },
+    Register: {
+      screen: RegisterScreen,
+      navigationOptions: {
+        headerTitle: 'Register',
       },
     }
   },

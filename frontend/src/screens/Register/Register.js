@@ -14,36 +14,24 @@ import {
 import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
-import { logIn, fakeLogin } from "../../actions/authActions";
+import { register } from "../../actions/authActions";
 //import {  } from 'react-native';
 
 
-class LoginScreen extends Component<{}> {
+class RegisterScreen extends Component<{}> {
 
-  username = "";
-  password = "";
-
-  onEditUsername(text){
-    console.log(text);
-    this.setState({username:text});
-  }
-
-  onEditPassword(text){
-    this.password = text;
-  }
-
-  onLogin = () => {
+  onRegister = () => {
     console.log("LOGIN PRESSED");
     console.log(this.state.username, this.state.password);
     //this.props.dispatch(logIn(this.state.username, this.state.password));
-    logIn(this.props.dispatch, this.state.username, this.state.password);
+    register(this.props.dispatch, this.state.username, this.state.password1, this.state.password2);
     //this.store
   }
 
   constructor(props) {
     console.log("Constructing LoginScreen");
     super(props);
-    this.state = {username: "", password: "", errorMsg: ""};
+    this.state = {username: "", password1: "", password2: "", errorMsg: ""};
     this.checkLogin(props);
   }
 
@@ -60,11 +48,11 @@ class LoginScreen extends Component<{}> {
   }
 
   componentWillMount(){
-    console.log("componentWillMount LoginScreen");
+    console.log("componentWillMount RegisterScreen");
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("componentWillReceiveProps LoginScreen");
+    console.log("componentWillReceiveProps RegisterScreen");
     this.checkLogin(nextProps);
   }
 
@@ -75,7 +63,7 @@ class LoginScreen extends Component<{}> {
     return (
       <Container>
         <Content>
-          <Title color="black">This is the login page</Title>
+          <Text>This is the register page</Text>
           <Form>
             <Item>
               <Input
@@ -90,39 +78,46 @@ class LoginScreen extends Component<{}> {
                 onSubmitEditing={() => {}}
               />
             </Item>
-            <Item last>
+            <Item>
               <Input
                 placeholder="Password" 
                 onChangeText={(text) =>{
                   console.log(text);
-                  this.setState({password:text});
+                  this.setState({password1:text});
+                }}
+                secureTextEntry
+                autoCorrect={false}
+                autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+              />
+            </Item>
+            <Item last>
+              <Input
+                placeholder="Confirm Password" 
+                onChangeText={(text) =>{
+                  console.log(text);
+                  this.setState({password2:text});
                 }}
                 secureTextEntry
                 autoCorrect={false}
                 autoCapitalize="none"
                 returnKeyType="go"
-                onSubmitEditing={this.onLogin}
+                onSubmitEditing={this.onRegister}
               />
             </Item>
             <Text>{this.props.ui.error}</Text>
             <Button
-              onPress={this.onLogin}
+              onPress={this.onRegister}
               disabled={this.props.ui.loading}
             >
-              <Text>Login</Text>
-            </Button>
-          </Form>
-          <Button transparent
-            onPress={() => {
-              this.props.navigation.navigate("Register");
-            }}
-          >
-            <Text>Not a member?</Text>
+            <Text>Register</Text>
           </Button>
+          </Form>
 
-          <Text>{this.props.user ? this.props.user.username : "No User"}</Text>
           <Text>{this.state.username}</Text>
-          <Text>{this.state.password}</Text>
+          <Text>{this.state.password1}</Text>
+          <Text>{this.state.password2}</Text>
         </Content>
       </Container>
     );
@@ -132,13 +127,13 @@ class LoginScreen extends Component<{}> {
 function mapStateToProps(state) {
   //return state.auth;
   return {
-    ui: state.ui.loginScreen,
+    ui: state.ui.registerScreen,
     profile: state.auth.user,
     loggedIn: state.auth.loggedIn
   };
 }
 
-export default connect(mapStateToProps)(LoginScreen);
+export default connect(mapStateToProps)(RegisterScreen);
 //export default LoginScreen;
 //export default LoginScreen;
 /*
