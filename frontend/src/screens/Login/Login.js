@@ -14,7 +14,7 @@ import {
 import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
-import { logIn, fakeLogin } from "../../actions/authActions";
+import { logIn, fakeLogin, myprofile } from "../../actions/authActions";
 //import {  } from 'react-native';
 
 
@@ -56,6 +56,7 @@ class LoginScreen extends Component<{}> {
         ]
       })
       props.navigation.dispatch(resetAction)
+      //myprofile(this.props.dispatch);
     }
   }
 
@@ -81,7 +82,6 @@ class LoginScreen extends Component<{}> {
               <Input
                 placeholder="Username"
                 onChangeText={(text) =>{
-                  console.log(text);
                   this.setState({username:text});
                 }}
                 returnKeyType="next"
@@ -94,7 +94,6 @@ class LoginScreen extends Component<{}> {
               <Input
                 placeholder="Password" 
                 onChangeText={(text) =>{
-                  console.log(text);
                   this.setState({password:text});
                 }}
                 secureTextEntry

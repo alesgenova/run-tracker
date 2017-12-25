@@ -9,8 +9,9 @@ export function authReducer(state=initialState, action){
     case "LOGIN_FULFILLED": {
       console.log("LOGIN_FULFILLED in AUTH");
       return {
+        ...state,
         loggedIn: true,
-        token: action.payload.key
+        token: action.payload.data.key
       }
     }
     case "LOGOUT_FULFILLED": {
@@ -19,8 +20,15 @@ export function authReducer(state=initialState, action){
     case "REGISTER_FULFILLED": {
       console.log("REGISTER_FULFILLED in AUTH");
       return {
+        ...state,
         loggedIn: true,
-        token: action.payload.key
+        token: action.payload.data.key
+      }
+    }
+    case "ME_FULFILLED": {
+      return {
+        ...state,
+        user: action.payload.data
       }
     }
     default : {

@@ -4,7 +4,7 @@ export function entriesReducer(state=initialState, action) {
   switch(action.type){
     case "FETCH_ENTRIES_FULFILLED": {
       // fresh set of all entries from the server
-      return action.entries;
+      return action.payload.data;
     }
     case "CREATE_ENTRY": {
       return state;

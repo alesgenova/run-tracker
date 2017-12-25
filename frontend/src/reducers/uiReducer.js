@@ -6,6 +6,13 @@ const initialState = {
   registerScreen: {
     loading: false,
     error: null
+  },
+  entriesScreen: {
+    loading: false,
+    error: null
+  },
+  usersScreen: {
+
   }
 }
 

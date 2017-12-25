@@ -15,11 +15,12 @@ import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
 import { fakeLogout } from "../../actions/authActions";
+import { fetchEntries } from "../../actions/entriesActions";
 
 
-class HomeScreen extends Component<{}> {
+class EntriesScreen extends Component<{}> {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Entries',
   }
 
   onLogout = () => {
@@ -38,7 +39,9 @@ class HomeScreen extends Component<{}> {
   }
 
   checkLogin(props){
-    if (!props.loggedIn){
+    if (props.loggedIn){
+      
+    }else{
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -58,6 +61,9 @@ class HomeScreen extends Component<{}> {
     console.log("Constructing HomeScreen");
     super(props);
     this.checkLogin(props);
+    if (props.loggedIn){
+      fetchEntries(this.props.dispatch);
+    }
   }
 
   render() {
@@ -82,10 +88,11 @@ class HomeScreen extends Component<{}> {
 function mapStateToProps(state) {
   //return state.auth;
   return {
-    ui: state.ui.homeScreen,
+    ui: state.ui.entriesScreen,
+    entries: state.entries,
     profile: state.auth.user,
     loggedIn: state.auth.loggedIn
   };
 }
 
-export default connect(mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps)(EntriesScreen);
