@@ -102,6 +102,11 @@ class EditEntryScreen extends Component<{}> {
     */
   }
 
+  onSave = () =>{
+    console.log("On Save Pressed");
+    
+  }
+
   render() {
     
     return (
@@ -148,7 +153,7 @@ class EditEntryScreen extends Component<{}> {
                 }}/>
               </Right>
             </CardItem>
-            { this.props.profile.is_staff &&
+            { this.props.profile.is_superuser &&
             <View>
               <CardItem>
                 <Left>
@@ -170,21 +175,18 @@ class EditEntryScreen extends Component<{}> {
               </View>
             </View>
             }
-          </Card>
-          <Form>
-                <Picker
-                  iosHeader="Select one"
-                  mode="dropdown"
-                  selectedValue={this.state.entry.user}
-                  //selectedValue="key2"
-                  onValueChange={this.onUserChange.bind(this)}
+            <CardItem>
+              <Left />
+              <Right>
+                <Button
+                  onPress={this.onSave}
                 >
-                  {this.props.users.map((user, index) => {
-                    return (<Item label={user.username} value={user.pk} key={index}/>) 
-                  })}
-                </Picker>
-                </Form>
-          <Text>Edit Entry Screen</Text>
+                  <Text>{this.state.create? 'Create' : 'Save'}</Text>
+                </Button>
+              </Right>
+            </CardItem>
+          </Card>
+
           <Text>{this.props.navigation.state.params.pk}</Text>
           <Text>{JSON.stringify(this.state.entry)}</Text>
         </Content>

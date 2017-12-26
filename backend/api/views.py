@@ -20,7 +20,10 @@ class EntryList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user
-        serializer.save(user=self.request.user)
+        if user.is_superuser:
+            serializer.save()
+        else:
+            serializer.save(user=self.request.user)
 
 
 class EntryDetail(generics.RetrieveUpdateDestroyAPIView):

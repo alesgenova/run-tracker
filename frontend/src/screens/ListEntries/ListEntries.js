@@ -170,6 +170,7 @@ class EntriesScreen extends Component<{}> {
 
   onAddEntry = () => {
     console.log("Add Entry")
+    this.props.navigation.navigate("EditEntry",{pk:-1})
   }
 
 
