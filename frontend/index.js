@@ -1,4 +1,4 @@
-import { AppRegistry, StatusBar } from 'react-native';
+import { AppRegistry } from 'react-native';
 import App from './src/setup';
 
 //StatusBar.setBarStyle('red');

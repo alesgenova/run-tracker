@@ -88,7 +88,10 @@ export class Entry extends Component {
                 <Left>
                   <Button
                       transparent
-                      onPress={ () => { this.props.deleteFn(this.props.entry.pk) } }
+                      onPress={ () => {
+                        this.setState({expanded: false});
+                        this.props.deleteFn(this.props.entry.pk)
+                      } }
                     >
                       <Text>Delete</Text>
                   </Button>
@@ -96,7 +99,10 @@ export class Entry extends Component {
                 <Right>
                   <Button 
                     transparent
-                    onPress={ () => { this.props.editFn(this.props.entry.pk) } }
+                    onPress={ () => { 
+                      this.setState({expanded: false});
+                      this.props.editFn(this.props.entry.pk);
+                    } }
                   >
                     <Text>Edit</Text>
                   </Button>

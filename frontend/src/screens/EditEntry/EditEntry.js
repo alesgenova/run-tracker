@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
 import { fakeLogout } from "../../actions/authActions";
-import { fetchEntries } from "../../actions/entriesActions";
+import { createEntry, updateEntry } from "../../actions/entriesActions";
 
 import moment from 'moment';
 
@@ -104,6 +104,12 @@ class EditEntryScreen extends Component<{}> {
 
   onSave = () =>{
     console.log("On Save Pressed");
+    if (this.state.create) {
+      createEntry(this.state.entry, this.props.dispatch, this.props.navigation);
+      //this.props.navigation.back();
+    }else{
+      updateEntry(this.state.entry, this.props.dispatch, this.props.navigation);
+    }
     
   }
 

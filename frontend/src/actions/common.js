@@ -2,7 +2,7 @@ import axios from "axios";
 
 import store from '../stores/store';
 
-export const baseUrl = "http://192.168.1.118:8000";
+export const baseUrl = "http://10.0.2.2:8000";
 
 export function authAxios(){
   let token = store.getState().auth.token;

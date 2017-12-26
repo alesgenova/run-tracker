@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
 import { fakeLogout } from "../../actions/authActions";
-import { fetchEntries } from "../../actions/entriesActions";
+import { fetchEntries, deleteEntry } from "../../actions/entriesActions";
 
 import { Week } from '../../components/Week/Week';
 import { Entry } from '../../components/Entry/Entry';
@@ -166,6 +166,7 @@ class EntriesScreen extends Component<{}> {
 
   onDeleteEntry = (pk) => {
     console.log("Delete Entry ", pk);
+    deleteEntry(pk, this.props.dispatch);
   }
 
   onAddEntry = () => {
