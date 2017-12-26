@@ -1,4 +1,8 @@
 import { baseUrl, authAxios } from "./common";
+import { myprofile } from './authActions';
+import { NavigationActions } from 'react-navigation'
+
+const backAction = NavigationActions.back({})
 
 export function fetchUsers(dispatch){
   instance = authAxios();
@@ -16,4 +20,24 @@ export function fetchUsers(dispatch){
     console.log(err);
   })
   
+}
+
+export function updateUser(user, dispatch, navigation){
+  instance = authAxios();
+  dispatch(
+    {
+      type: "UPDATE_USER",
+      payload: instance.put("/v1/user/"+user.pk+"/", user)
+    }
+  )
+  .then( () => {
+    console.log("UPDATE_USER THEN");
+    myprofile(dispatch);
+    fetchUsers(dispatch);
+    navigation.dispatch(backAction);
+  })
+  .catch((err) => {
+    console.log("UPDATE_USER CATCH");
+    console.log(err);
+  })
 }

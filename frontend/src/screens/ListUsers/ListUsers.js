@@ -8,14 +8,19 @@ import {
   Content,
   Header,
   Item,
-  Form
+  Form,
+  List
 } from 'native-base';
+
+import { FlatList } from 'react-native';
 
 import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
 import { fakeLogout } from "../../actions/authActions";
 import { fetchUsers } from "../../actions/usersActions";
+
+import { UserCard } from '../../components/UserCard/UserCard';
 
 
 class UsersScreen extends Component<{}> {
@@ -31,14 +36,24 @@ class UsersScreen extends Component<{}> {
     }
   }
 
+  onEditUser = (user) => {
+    console.log("Edit User ", user);
+    this.props.navigation.navigate("EditUser", {user:user})
+  }
+
   render() {
     console.log("Rendering Users");
     console.log(this.props);
     return (
       <Container>
-        <Header />
         <Content padder>
-          <Text>Users List</Text>
+          {this.props.users  &&
+            <FlatList
+              data={this.props.users}
+              renderItem={({item}) => <UserCard profile={item} logoutFn={null} editFn={this.onEditUser}/>}
+              keyExtractor={(item) => item.pk}
+            />
+          }
 
         </Content>
       </Container>

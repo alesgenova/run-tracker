@@ -46,7 +46,7 @@ export class UserCard extends Component {
           </CardItem>
           }
           <CardItem>
-          {this.props.logout &&
+          {this.props.logoutFn &&
             <Left>
               <Button
                   transparent
@@ -56,14 +56,14 @@ export class UserCard extends Component {
               </Button>
             </Left>
           }
-          {!this.props.logout &&
+          {!this.props.logoutFn &&
             <Left>
             </Left>
           }
             <Right>
               <Button 
                 transparent
-                onPress={this.props.editUser}
+                onPress={() => { this.props.editFn(this.props.profile)}}
               >
                 <Text>Edit Profile</Text>
               </Button>

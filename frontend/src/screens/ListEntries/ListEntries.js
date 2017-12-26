@@ -159,6 +159,11 @@ class EntriesScreen extends Component<{}> {
     this.state = {groupedEntries: []};
   }
 
+  onEditUser = (user) => {
+    console.log("Edit User ", user);
+    this.props.navigation.navigate("EditUser",{user:user})
+  }
+
   onEditEntry = (pk) => {
     console.log("Edit Entry ", pk);
     this.props.navigation.navigate("EditEntry",{pk:pk})
@@ -183,7 +188,7 @@ class EntriesScreen extends Component<{}> {
       <Container>
         <Content padder>
           {this.props.profile  &&
-            <UserCard profile={this.props.profile} logout={this.onLogout} />
+            <UserCard profile={this.props.profile} logoutFn={this.onLogout} editFn={this.onEditUser} />
           }
           {this.props.entries  &&
             <SectionList 

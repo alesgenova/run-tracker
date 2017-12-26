@@ -12,6 +12,7 @@ import LoginScreen from "../screens/Login/Login";
 //import HomeScreen from "../screens/Home/Home";
 import RegisterScreen from "../screens/Register/Register";
 import EditEntryScreen from "../screens/EditEntry/EditEntry";
+import EditUserScreen from "../screens/EditUser/EditUser";
 import { HomeNavigator } from "./TabNavigator";
 
 import { connect } from "react-redux";
@@ -39,13 +40,13 @@ export const RootNavigator = StackNavigator(
     EditEntry: {
       screen: EditEntryScreen,
       navigationOptions: {
-        headerTitle: 'EditEntry',
+        headerTitle: 'Edit Entry',
       },
     },
     EditUser: {
-      screen: EditEntryScreen,
+      screen: EditUserScreen,
       navigationOptions: {
-        headerTitle: 'EditUser',
+        headerTitle: 'Edit User',
       },
     },
   },
