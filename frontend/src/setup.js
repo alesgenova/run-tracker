@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { persistStore } from "redux-persist";
-import { Container } from "native-base";
-//import { AsyncStorage } from "react-native";
+
+import { StatusBar } from "react-native";
 import {
   ActivityIndicator,
   Text,
   View
 } from 'react-native';
+
+import {
+  Container,
+  Header,
+} from 'native-base';
 
 import { RootNavigator } from './navigators/RootNavigator';
 import { LoginScreen } from './screens/Login/Login';
@@ -31,6 +36,8 @@ export default class Root extends Component {
         let auth = store.getState().auth;
         console.log("AUTH");
         console.log(this.auth)
+        StatusBar.setBackgroundColor("#303F9F");
+        StatusBar.setTranslucent(false);
         this.setState({loggedIn: auth.loggedIn});
         this.setState({isReady: true});
       }
@@ -39,7 +46,7 @@ export default class Root extends Component {
 
   render() {
     if (!this.state.isReady){
-      console.log("Storage not ready");
+      //console.log("Storage not ready");
       return (
       <View>
         <ActivityIndicator size="large" color="#0000ff" />
@@ -47,11 +54,11 @@ export default class Root extends Component {
       );
     }
     return (
-      <Provider store={store}>
-
+      
+        <Provider store={store}>
           <RootNavigator />
-
-      </Provider>
+        </Provider>
+      
     );
     /*
     console.log("Storage is ready");

@@ -36,8 +36,10 @@ class UsersScreen extends Component<{}> {
     console.log(this.props);
     return (
       <Container>
-        <Content>
+        <Header />
+        <Content padder>
           <Text>Users List</Text>
+
         </Content>
       </Container>
     );

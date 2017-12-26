@@ -18,7 +18,13 @@ export const HomeNavigator = TabNavigator(
   },
   {
     initialRouteName: "Entries",
-    //headerMode: "none"
+    //headerMode: "none",
+    tabBarPosition: "top",
+    tabBarOptions: {
+      style: {
+        backgroundColor: '#3F51B5',
+      },
+    }
   }
 );
 
