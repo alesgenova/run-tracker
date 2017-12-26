@@ -35,6 +35,14 @@ class EntryDetail(generics.RetrieveUpdateDestroyAPIView):
         if user.is_superuser:
             return Entry.objects.all()
         return user.entries.all()
+
+    def perform_update(self, serializer, **kwargs):
+        user = self.request.user
+        changing_entry = Entry.objects.get(pk=self.kwargs['pk'])
+        if user.is_superuser:
+            serializer.save()
+        else:
+            serializer.save(user=changing_entry.user)
     
 
 
@@ -45,8 +53,7 @@ class UserList(generics.ListAPIView):
         user = self.request.user
         if user.is_staff:
           return User.objects.all()
-
-        return [user]
+        return User.objects.filter(pk=user.pk)
 
     def perform_create(self, serializer):
         user = self.request.user
@@ -62,7 +69,20 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         if user.is_staff:
             return User.objects.all()
-        return [user]
+        return User.objects.filter(pk=user.pk)
+
+    def perform_update(self, serializer, **kwargs):
+        user = self.request.user
+        changing_user = User.objects.get(pk=self.kwargs['pk'])
+        print(changing_user)
+        if user.is_superuser:
+            serializer.save()
+        elif user.is_staff:
+            serializer.save(is_superuser=changing_user.is_superuser)
+        else:
+            serializer.save(is_staff=changing_user.is_staff, is_superuser=changing_user.is_superuser)
+        #if user.is_staff:
+        #  serializer.save()
     
 
 class Myself(generics.GenericAPIView):

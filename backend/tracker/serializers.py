@@ -6,4 +6,4 @@ class EntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         fields = ('pk', 'date','user','time','distance')
-        read_only_fields = ('user', 'pk')
+        read_only_fields = ('pk',)
