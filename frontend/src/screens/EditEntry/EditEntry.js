@@ -192,9 +192,12 @@ class EditEntryScreen extends Component<{}> {
               </Right>
             </CardItem>
           </Card>
-
+          {false &&
+          <View>
           <Text>{this.props.navigation.state.params.pk}</Text>
           <Text>{JSON.stringify(this.state.entry)}</Text>
+          </View>
+          }
         </Content>
       </Container>
 

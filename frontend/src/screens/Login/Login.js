@@ -132,10 +132,13 @@ class LoginScreen extends Component<{}> {
               </Right>
             </CardItem>
           </Card>
-
+          {false &&
+          <View>
           <Text>{this.props.user ? this.props.user.username : "No User"}</Text>
           <Text>{this.state.username}</Text>
           <Text>{this.state.password}</Text>
+          </View>
+          }
         </Content>
       </Container>
     );

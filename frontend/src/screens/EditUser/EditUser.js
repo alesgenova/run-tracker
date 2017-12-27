@@ -164,7 +164,11 @@ class EditUserScreen extends Component<{}> {
             </CardItem>
           </Card>
         }
+        {false &&
+        <View>
           <Text>{JSON.stringify(this.state.user)}</Text>
+        </View>
+        }
         </Content>
       </Container>
 

@@ -119,10 +119,13 @@ class RegisterScreen extends Component<{}> {
               </Right>
             </CardItem>
           </Card>
-
+          {false &&
+          <View>
           <Text>{this.state.username}</Text>
           <Text>{this.state.password1}</Text>
           <Text>{this.state.password2}</Text>
+          </View>
+          }
         </Content>
       </Container>
     );
