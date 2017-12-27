@@ -32,7 +32,7 @@ export function updateUser(user, dispatch, navigation){
   )
   .then( () => {
     console.log("UPDATE_USER THEN");
-    myprofile(dispatch);
+    myprofile(dispatch, navigation);
     fetchUsers(dispatch);
     navigation.dispatch(backAction);
   })

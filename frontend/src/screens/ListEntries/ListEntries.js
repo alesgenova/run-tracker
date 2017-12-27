@@ -20,7 +20,7 @@ import { FlatList, SectionList } from 'react-native';
 import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation'
 
-import { fakeLogout } from "../../actions/authActions";
+import { fakeLogout, logOut, myprofile } from "../../actions/authActions";
 import { fetchEntries, deleteEntry } from "../../actions/entriesActions";
 
 import { Week } from '../../components/Week/Week';
@@ -82,7 +82,8 @@ class EntriesScreen extends Component<{}> {
 
   onLogout = () => {
     console.log("Logout Pressed");
-    fakeLogout(this.props.dispatch, this.props.navigation);
+    //fakeLogout(this.props.dispatch, this.props.navigation);
+    logOut(this.props.dispatch, this.props.navigation);
   }
 
   filterEntries(entries){
@@ -169,6 +170,7 @@ class EntriesScreen extends Component<{}> {
     //this.checkLogin(props);
     if (props.loggedIn){
       fetchEntries(this.props.dispatch);
+      myprofile(this.props.dispatch, this.props.navigation);
     }
     //this.state = {groupedEntries: []};
     this.state = {minDate:null, maxDate:null};

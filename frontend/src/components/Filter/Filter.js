@@ -62,7 +62,7 @@ export class Filter extends Component {
   render(){
     return(
       <View>
-        <Card  transparent style={{backgroundColor: "#eee", marginBottom:0, marginTop:20}} >
+        <Card  transparent style={{backgroundColor: "#fff", marginBottom:0, marginTop:20}} >
           <CardItem button style={{ backgroundColor: "transparent" }}
             onPress={() => {
               console.log("Expand");

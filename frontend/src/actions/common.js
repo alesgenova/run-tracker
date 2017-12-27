@@ -14,3 +14,11 @@ export function authAxios(){
   instance.defaults.headers.common['Authorization'] = "Token "+token;
   return instance;
 }
+
+export function anonAxios(){
+  let instance = axios.create({
+    baseURL: baseUrl
+  });
+  instance.defaults.headers.common['Authorization'] = null;
+  return instance;
+}
