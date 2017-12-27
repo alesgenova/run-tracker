@@ -36,7 +36,7 @@ export class Week extends Component {
               }}
             >
               <Left>
-                <Text style={{fontWeight:"500"}}>{moment(this.props.week.start).format("MMM Do")} to {moment(this.props.week.start).add(moment.duration(6, 'd')).format("MMM Do")}</Text>
+                <Text style={{fontWeight:"500"}}>{moment(this.props.week.start).format("MMM D")} to {moment(this.props.week.start).add(moment.duration(6, 'd')).format("MMM D YYYY")}</Text>
               </Left>
               <Right>
                   <Icon name="arrow-dropdown"/>

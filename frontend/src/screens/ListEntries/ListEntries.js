@@ -25,6 +25,7 @@ import { fetchEntries, deleteEntry } from "../../actions/entriesActions";
 
 import { Week } from '../../components/Week/Week';
 import { Entry } from '../../components/Entry/Entry';
+import { Filter } from '../../components/Filter/Filter';
 import { UserCard } from '../../components/UserCard/UserCard';
 
 
@@ -82,6 +83,19 @@ class EntriesScreen extends Component<{}> {
   onLogout = () => {
     console.log("Logout Pressed");
     fakeLogout(this.props.dispatch, this.props.navigation);
+  }
+
+  filterEntries(entries){
+    if (!this.state.minDate && !this.state.maxDate){
+      return entries;
+    }
+    let filtered = [];
+    for (let e of entries){
+      if ((e.date >= this.state.minDate || !this.state.minDate) && (e.date <= this.state.maxDate || !this.state.maxDate)){
+        filtered.push(e);
+      }
+    }
+    return filtered;
   }
 
   groupByWeek(entries){
@@ -146,7 +160,7 @@ class EntriesScreen extends Component<{}> {
   }
 
   componentDidMount(){
-    this.setState({groupedEntries: this.groupByWeek(this.props.entries)});
+    //this.setState({groupedEntries: this.groupByWeek(this.props.entries)});
   }
 
   constructor(props) {
@@ -156,7 +170,10 @@ class EntriesScreen extends Component<{}> {
     if (props.loggedIn){
       fetchEntries(this.props.dispatch);
     }
-    this.state = {groupedEntries: []};
+    //this.state = {groupedEntries: []};
+    this.state = {minDate:null, maxDate:null};
+    //this.state = {minDate:"2017-12-25", maxDate:null};
+    //this.state = {minDate:null, maxDate:"2017-12-27"};
   }
 
   onEditUser = (user) => {
@@ -179,6 +196,14 @@ class EntriesScreen extends Component<{}> {
     this.props.navigation.navigate("EditEntry",{pk:-1})
   }
 
+  onChangeMinDate = (date) =>{
+    this.setState({minDate:date});
+  }
+
+  onChangeMaxDate = (date) =>{
+    this.setState({maxDate:date});
+  }
+
 
 
   render() {
@@ -190,9 +215,15 @@ class EntriesScreen extends Component<{}> {
           {this.props.profile  &&
             <UserCard profile={this.props.profile} logoutFn={this.onLogout} editFn={this.onEditUser} />
           }
+          <Filter 
+            changeMinFn={this.onChangeMinDate}
+            changeMaxFn={this.onChangeMaxDate}
+            minDate={this.state.minDate}
+            maxDate={this.state.maxDate}
+          />
           {this.props.entries  &&
             <SectionList 
-              sections={this.groupByWeek(this.props.entries)}
+              sections={this.groupByWeek(this.filterEntries(this.props.entries))}
               renderSectionHeader={({section}) => <Week week={section} />}
               renderItem={({item}) => <Entry entry={item} editFn={this.onEditEntry} deleteFn={this.onDeleteEntry}/>}
               keyExtractor={(item, index) => index}

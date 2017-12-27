@@ -34,7 +34,7 @@ export class Entry extends Component {
               }}
             >
               <Left>
-                <Text style={{fontWeight:"500"}}>{moment(this.props.entry.date).format("MMM Do")}</Text>
+                <Text style={{fontWeight:"400"}}>{moment(this.props.entry.date).format("MMM D")}</Text>
               </Left>
               <Right>
                 <Text>
