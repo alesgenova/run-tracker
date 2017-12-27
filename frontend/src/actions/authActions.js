@@ -2,8 +2,26 @@ import axios from "axios";
 
 import { baseUrl, authAxios } from "./common";
 
-export function fakeLogout(dispatch){
+import { NavigationActions } from 'react-navigation'
+
+const goToHome = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: 'Home'})
+  ]
+})
+
+const goToLogin = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: 'Login'})
+  ]
+})
+
+
+export function fakeLogout(dispatch, navigation){
   dispatch({type: "LOGOUT_FULFILLED"});
+  navigation.dispatch(goToLogin);
 }
 
 export function fakeLogin(dispatch, username, password){
@@ -31,7 +49,7 @@ export function fakeLogin(dispatch, username, password){
 
 }
 
-export function logIn(dispatch, username, password){
+export function logIn(dispatch, navigation, username, password){
 
   // make it easy thanks to the promise middleware!
   // automatically appends _PENDING, _FULFILLED, _REJECTED, to the action type
@@ -45,6 +63,7 @@ export function logIn(dispatch, username, password){
   .then( () => {
     console.log("LOGIN THEN");
     myprofile(dispatch);
+    navigation.dispatch(goToHome);
   })
   .catch((err) => {
     console.log("LOGIN CATCH");
@@ -52,7 +71,7 @@ export function logIn(dispatch, username, password){
   })
 }
 
-export function register(dispatch, username, password1, password2, first_name, last_name){
+export function register(dispatch, navigation, username, password1, password2){
 
   // make it easy thanks to the promise middleware!
   // automatically appends _PENDING, _FULFILLED, _REJECTED, to the action type
@@ -74,6 +93,7 @@ export function register(dispatch, username, password1, password2, first_name, l
   .then( () => {
     console.log("REGISTER THEN");
     myprofile(dispatch);
+    navigation.dispatch(goToHome);
   })
   .catch((err) => {
     console.log("REGISTER CATCH");

@@ -50,7 +50,7 @@ export class UserCard extends Component {
             <Left>
               <Button
                   transparent
-                  onPress={this.props.logout}
+                  onPress={this.props.logoutFn}
                 >
                   <Text>Logout</Text>
               </Button>

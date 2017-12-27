@@ -7,7 +7,10 @@ import {
   Container,
   Content,
   Header,
-  Item,
+  Card,
+  CardItem,
+  Left,
+  Right,
   Form
 } from 'native-base';
 
@@ -21,10 +24,10 @@ import { register } from "../../actions/authActions";
 class RegisterScreen extends Component<{}> {
 
   onRegister = () => {
-    console.log("LOGIN PRESSED");
+    console.log("REGISTER PRESSED");
     console.log(this.state.username, this.state.password);
     //this.props.dispatch(logIn(this.state.username, this.state.password));
-    register(this.props.dispatch, this.state.username, this.state.password1, this.state.password2);
+    register(this.props.dispatch, this.props.navigation, this.state.username, this.state.password1, this.state.password2);
     //this.store
   }
 
@@ -32,18 +35,14 @@ class RegisterScreen extends Component<{}> {
     console.log("Constructing LoginScreen");
     super(props);
     this.state = {username: "", password1: "", password2: "", errorMsg: ""};
-    this.checkLogin(props);
+    //this.checkLogin(props);
   }
 
   checkLogin(props){
     if (props.loggedIn){
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Home'})
-        ]
-      })
-      props.navigation.dispatch(resetAction)
+
+      const backAction = NavigationActions.back({})
+      //props.navigation.dispatch(backAction)
     }
   }
 
@@ -53,7 +52,7 @@ class RegisterScreen extends Component<{}> {
 
   componentWillReceiveProps(nextProps){
     console.log("componentWillReceiveProps RegisterScreen");
-    this.checkLogin(nextProps);
+    //this.checkLogin(nextProps);
   }
 
   render() {
@@ -62,10 +61,9 @@ class RegisterScreen extends Component<{}> {
     //let profile = this.props.user;
     return (
       <Container>
-        <Content>
-          <Text>This is the register page</Text>
-          <Form>
-            <Item>
+        <Content padder>
+          <Card>
+            <CardItem>
               <Input
                 placeholder="Username"
                 onChangeText={(text) =>{
@@ -77,8 +75,8 @@ class RegisterScreen extends Component<{}> {
                 autoCapitalize="none"
                 onSubmitEditing={() => {}}
               />
-            </Item>
-            <Item>
+            </CardItem>
+            <CardItem>
               <Input
                 placeholder="Password" 
                 onChangeText={(text) =>{
@@ -91,8 +89,8 @@ class RegisterScreen extends Component<{}> {
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
-            </Item>
-            <Item last>
+            </CardItem>
+            <CardItem>
               <Input
                 placeholder="Confirm Password" 
                 onChangeText={(text) =>{
@@ -105,15 +103,22 @@ class RegisterScreen extends Component<{}> {
                 returnKeyType="go"
                 onSubmitEditing={this.onRegister}
               />
-            </Item>
-            <Text>{this.props.ui.error}</Text>
-            <Button
-              onPress={this.onRegister}
-              disabled={this.props.ui.loading}
-            >
-            <Text>Register</Text>
-          </Button>
-          </Form>
+            </CardItem>
+            <CardItem>
+              <Text style={{color:"red"}}>{this.props.ui.error}</Text>
+            </CardItem>
+            <CardItem>
+              <Left />
+              <Right>
+                <Button
+                  onPress={this.onRegister}
+                  disabled={this.props.ui.loading}
+                >
+                  <Text>Register</Text>
+                </Button>
+              </Right>
+            </CardItem>
+          </Card>
 
           <Text>{this.state.username}</Text>
           <Text>{this.state.password1}</Text>

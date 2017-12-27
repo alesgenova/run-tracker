@@ -7,7 +7,10 @@ import {
   Container,
   Content,
   Header,
-  Item,
+  CardItem,
+  Card,
+  Left,
+  Right,
   Form
 } from 'native-base';
 
@@ -36,7 +39,7 @@ class LoginScreen extends Component<{}> {
     console.log("LOGIN PRESSED");
     console.log(this.state.username, this.state.password);
     //this.props.dispatch(logIn(this.state.username, this.state.password));
-    logIn(this.props.dispatch, this.state.username, this.state.password);
+    logIn(this.props.dispatch, this.props.navigation, this.state.username, this.state.password);
     //this.store
   }
 
@@ -66,7 +69,7 @@ class LoginScreen extends Component<{}> {
 
   componentWillReceiveProps(nextProps){
     console.log("componentWillReceiveProps LoginScreen");
-    this.checkLogin(nextProps);
+    //this.checkLogin(nextProps);
   }
 
   render() {
@@ -75,10 +78,9 @@ class LoginScreen extends Component<{}> {
     //let profile = this.props.user;
     return (
       <Container>
-        <Content>
-          <Title color="black">This is the login page</Title>
-          <Form>
-            <Item>
+        <Content padder>
+          <Card>
+            <CardItem>
               <Input
                 placeholder="Username"
                 onChangeText={(text) =>{
@@ -89,8 +91,8 @@ class LoginScreen extends Component<{}> {
                 autoCapitalize="none"
                 onSubmitEditing={() => {}}
               />
-            </Item>
-            <Item last>
+            </CardItem>
+            <CardItem>
               <Input
                 placeholder="Password" 
                 onChangeText={(text) =>{
@@ -102,22 +104,34 @@ class LoginScreen extends Component<{}> {
                 returnKeyType="go"
                 onSubmitEditing={this.onLogin}
               />
-            </Item>
-            <Text>{this.props.ui.error}</Text>
-            <Button
-              onPress={this.onLogin}
-              disabled={this.props.ui.loading}
-            >
-              <Text>Login</Text>
-            </Button>
-          </Form>
-          <Button transparent
-            onPress={() => {
-              this.props.navigation.navigate("Register");
-            }}
-          >
-            <Text>Not a member?</Text>
-          </Button>
+            </CardItem>
+            <CardItem>
+              <Text style={{color:"red"}}>{this.props.ui.error}</Text>
+            </CardItem>
+            <CardItem>
+              <Left />
+              <Right>
+              <Button
+                onPress={this.onLogin}
+                disabled={this.props.ui.loading}
+              >
+                <Text>Login</Text>
+              </Button>
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Left />
+              <Right>
+              <Button transparent
+                onPress={() => {
+                  this.props.navigation.navigate("Register");
+                }}
+              >
+                <Text>Not a member?</Text>
+              </Button>
+              </Right>
+            </CardItem>
+          </Card>
 
           <Text>{this.props.user ? this.props.user.username : "No User"}</Text>
           <Text>{this.state.username}</Text>

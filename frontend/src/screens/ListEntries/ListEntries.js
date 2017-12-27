@@ -81,7 +81,7 @@ class EntriesScreen extends Component<{}> {
 
   onLogout = () => {
     console.log("Logout Pressed");
-    fakeLogout(this.props.dispatch);
+    fakeLogout(this.props.dispatch, this.props.navigation);
   }
 
   groupByWeek(entries){
@@ -142,7 +142,7 @@ class EntriesScreen extends Component<{}> {
 
   componentWillReceiveProps(nextProps){
     console.log("componentWillReceiveProps HomeScreen");
-    this.checkLogin(nextProps);
+    //this.checkLogin(nextProps);
   }
 
   componentDidMount(){
@@ -152,7 +152,7 @@ class EntriesScreen extends Component<{}> {
   constructor(props) {
     console.log("Constructing HomeScreen");
     super(props);
-    this.checkLogin(props);
+    //this.checkLogin(props);
     if (props.loggedIn){
       fetchEntries(this.props.dispatch);
     }

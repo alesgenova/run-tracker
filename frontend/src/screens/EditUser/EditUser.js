@@ -17,7 +17,8 @@ import {
   Left,
   Right,
   Label,
-  Body
+  Body,
+  Radio
 } from 'native-base';
 
 import { connect } from "react-redux";
@@ -36,8 +37,31 @@ class EditUserScreen extends Component<{}> {
 
   constructor(props) {
     super(props);
-    this.state = {user: this.props.navigation.state.params.user};
+    let user = this.props.navigation.state.params.user;
+    let disablePerms = (!this.props.profile.is_superuser && user.is_superuser);
+    let selectedPerms = 'U';
+    if (user.is_superuser){
+      selectedPerms = 'A';
+    }else if (user.is_staff){
+      selectedPerms = 'M';
+    }
+    this.state = {user: user, disablePerms: disablePerms, selectedPerms:selectedPerms};
+
     //console.log(this.state);
+  }
+
+  onChangePerms(perm){
+    let is_staff = false;
+    let is_superuser = false;
+    if (perm == 'A'){
+      is_staff = true;
+      is_superuser = true;
+    }else if (perm == 'M'){
+      is_staff = true;
+      is_superuser = false;
+    }
+    this.setState({user:{...this.state.user,is_staff:is_staff,is_superuser:is_superuser}});
+    this.setState({selectedPerms:perm});
   }
 
 
@@ -88,13 +112,44 @@ class EditUserScreen extends Component<{}> {
                 }/>
               </Right>
             </CardItem>
-            { this.props.profile.is_superuser &&
+            { (this.props.profile.is_staff || this.props.profile.is_superuser) &&
             <View>
-              <CardItem>
-                <Left>
-                  <Text>Mderator:</Text>
-                </Left>
-              </CardItem>
+            <CardItem>
+              <Left>
+                <Text>User:</Text>
+              </Left>
+              <Right>
+                <Radio disabled={this.state.disablePerms} selected={this.state.selectedPerms=='U'} 
+                  onPress={()=>{
+                    this.onChangePerms('U');
+                  }}
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Text>Mderator:</Text>
+              </Left>
+              <Right>
+                <Radio disabled={this.state.disablePerms} selected={this.state.selectedPerms=='M'} 
+                  onPress={()=>{
+                    this.onChangePerms('M');
+                  }}
+                />
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Text>Admin:</Text>
+              </Left>
+              <Right>
+                <Radio disabled={this.state.disablePerms||!this.props.profile.is_superuser} selected={this.state.selectedPerms=='A'}
+                  onPress={()=>{
+                    this.onChangePerms('A');
+                  }}
+                />
+              </Right>
+            </CardItem>
             </View>
             }
             <CardItem>
