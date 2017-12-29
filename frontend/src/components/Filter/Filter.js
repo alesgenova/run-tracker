@@ -98,6 +98,12 @@ export class Filter extends Component {
                 </Text>
               </Right>
             </CardItem>
+            <CardItem style={{ backgroundColor: "transparent" }} button onPress={this.props.resetFn}>
+              <Left />
+              <Right>
+                <Text style={{fontWeight:"500"}}>Reset</Text>
+              </Right>
+            </CardItem>
           </View>
           }
         </Card>

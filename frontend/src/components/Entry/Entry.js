@@ -21,6 +21,15 @@ export class Entry extends Component {
     this.state = { expanded: false }
   }
 
+  pk2username(pk){
+    for (let user of this.props.users){
+      if (pk == user.pk){
+        return user.username;
+      }
+    }
+    return pk.toString();
+  }
+
   render(){
     //console.log("Entry Props");
     //console.log(this.props);
@@ -38,14 +47,14 @@ export class Entry extends Component {
               </Left>
               <Right>
                 <Text>
-                  {this.props.entry.distance.toFixed(2)} km
+                  {this.props.user.is_superuser ? this.pk2username(this.props.entry.user) : this.props.entry.distance.toFixed(2)+' km'}
                 </Text>
               </Right>
 
             </CardItem>
             {this.state.expanded &&
             <View>
-              {false &&
+              {this.props.user.is_superuser &&
               <CardItem >
               <Left>
                 <Text>

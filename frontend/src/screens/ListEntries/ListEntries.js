@@ -206,7 +206,9 @@ class EntriesScreen extends Component<{}> {
     this.setState({maxDate:date});
   }
 
-
+  onResetFilter = () =>{
+    this.setState({minDate:null, maxDate:null});
+  }
 
   render() {
     console.log("Rendering Home");
@@ -222,12 +224,13 @@ class EntriesScreen extends Component<{}> {
             changeMaxFn={this.onChangeMaxDate}
             minDate={this.state.minDate}
             maxDate={this.state.maxDate}
+            resetFn={this.onResetFilter}
           />
-          {this.props.entries  &&
+          {this.props.entries  && this.props.profile && this.props.users &&
             <SectionList 
               sections={this.groupByWeek(this.filterEntries(this.props.entries))}
               renderSectionHeader={({section}) => <Week week={section} />}
-              renderItem={({item}) => <Entry entry={item} editFn={this.onEditEntry} deleteFn={this.onDeleteEntry}/>}
+              renderItem={({item}) => <Entry entry={item} editFn={this.onEditEntry} deleteFn={this.onDeleteEntry} user={this.props.profile} users={this.props.users}/>}
               keyExtractor={(item, index) => index}
             />
           }
@@ -254,6 +257,7 @@ function mapStateToProps(state) {
   return {
     ui: state.ui.entriesScreen,
     entries: state.entries,
+    users: state.users,
     profile: state.auth.user,
     loggedIn: state.auth.loggedIn
   };
