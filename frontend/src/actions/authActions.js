@@ -93,7 +93,7 @@ export function register(dispatch, navigation, username, password1, password2){
 
   // make it easy thanks to the promise middleware!
   // automatically appends _PENDING, _FULFILLED, _REJECTED, to the action type
-
+  instance = anonAxios();
   registration_form = {
     username: username,
     password1: password1,
@@ -105,7 +105,7 @@ export function register(dispatch, navigation, username, password1, password2){
   dispatch(
     {
       type: "REGISTER",
-      payload: axios.post(baseUrl+"/rest-auth/registration/", registration_form)
+      payload: instance.post("/rest-auth/registration/", registration_form)
     }
   )
   .then( () => {
